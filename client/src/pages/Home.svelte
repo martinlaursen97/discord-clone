@@ -1,8 +1,15 @@
 <script>
     import SideBar from "../components/SideBar.svelte";
-    import { BASE_URL } from "../stores";
+    import { onMount } from "svelte";
+    import { getCurrentUser } from "../api/crud";
 
-    const servers = [1, 2, 3];
+    let servers = [];
+
+    onMount(async () => {
+        let user = await getCurrentUser();
+
+        servers = user.servers;
+    });
 </script>
 
 <SideBar {servers} />

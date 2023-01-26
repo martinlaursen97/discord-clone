@@ -2,7 +2,7 @@ from fastapi import APIRouter, status, Depends, HTTPException
 from sqlalchemy.orm import Session
 from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 from database import get_db
-from users.schemas import User
+from users.schemas import UserOut, User
 
 from auth import utils
 from users import models
@@ -38,6 +38,7 @@ def refresh_token():
     pass
 
 @router.post('/current-user')
-def verify_jwt(current_user: User = Depends(utils.get_current_user)):
-    print(current_user)
+def verify_jwt(current_user: UserOut = Depends(utils.get_current_user)):
+    servers = [membership.author_server for membership in current_user.memberships]
+    current_user.servers = servers
     return current_user

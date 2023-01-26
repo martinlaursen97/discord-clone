@@ -16,9 +16,7 @@ class User(Base):
     created_at = Column(TIMESTAMP(timezone=True),
                         nullable=False, server_default=text('now()'))
 
-    #servers = relationship('Server', back_populates='owner')
-
-    members = relationship('Member', back_populates='author_user')
+    memberships = relationship('Member', back_populates='author_user')
     posts = relationship('Post', back_populates='author_user')
 
 

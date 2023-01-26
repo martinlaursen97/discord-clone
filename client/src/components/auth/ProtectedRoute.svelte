@@ -1,9 +1,8 @@
 <script>
     import Login from "../../pages/Login.svelte";
     import { Route } from "svelte-navigator";
-    import { token, BASE_URL } from "../../stores.js";
-    import axios from "axios";
     import { onMount } from "svelte";
+    import { getCurrentUser } from "../../api/crud";
 
     export let path;
     export let component;
@@ -11,21 +10,7 @@
     let isLoading = true;
 
     async function tokenIsValid() {
-        try {
-            const res = await axios.post(
-                `${BASE_URL}/auth/current-user`,
-                null,
-                {
-                    headers: {
-                        Authorization: `Bearer ${$token.split("token=")[1]}`,
-                    },
-                }
-            );
-            return res.status === 200;
-        } catch (err) {
-            console.log(err);
-            return false;
-        }
+        return (await getCurrentUser()) != null;
     }
     onMount(async () => {
         isLoading = true;

@@ -9,5 +9,5 @@ class Member(Base):
     user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
     server_id = Column(Integer, ForeignKey('servers.id'), nullable=False)
 
-    author_user = relationship('User', back_populates='members')
+    author_user = relationship('User', back_populates='memberships')
     author_server = relationship('Server', back_populates='members')
