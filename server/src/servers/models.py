@@ -16,4 +16,5 @@ class Server(Base):
     #owner = relationship('User', back_populates='servers')
 
     members = relationship('Member', back_populates='author_server')
+    posts = relationship('Post', back_populates='author_server')
     
