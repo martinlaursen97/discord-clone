@@ -1,7 +1,7 @@
 <script>
     import Login from "../../pages/Login.svelte";
     import { Route } from "svelte-navigator";
-    import { token } from "../../stores.js";
+    import { token, BASE_URL } from "../../stores.js";
     import axios from "axios";
     import { onMount } from "svelte";
 
@@ -13,7 +13,7 @@
     async function tokenIsValid() {
         try {
             const res = await axios.post(
-                "http://127.0.0.1:8000/auth/verify",
+                `${BASE_URL}/auth/current-user`,
                 null,
                 {
                     headers: {

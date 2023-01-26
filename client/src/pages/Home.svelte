@@ -1,7 +1,8 @@
 <script>
     import SideBar from "../components/SideBar.svelte";
+    import { BASE_URL } from "../stores";
 
-    const data = { servers: [1, 2, 3] };
+    const servers = [1, 2, 3];
 </script>
 
-<SideBar {data} />
+<SideBar {servers} />

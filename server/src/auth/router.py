@@ -37,7 +37,7 @@ def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depend
 def refresh_token():
     pass
 
-@router.post('/verify')
+@router.post('/current-user')
 def verify_jwt(current_user: User = Depends(utils.get_current_user)):
     print(current_user)
     return current_user
