@@ -1,15 +1,13 @@
 <script>
     import SideBar from "../components/SideBar.svelte";
-    import Modal from "../components/ServerFormModal.svelte";
     import { onMount } from "svelte";
-    import { getCurrentUser } from "../api/crud";
-
+    import { current_user } from "../stores";
     let servers = [];
 
-    onMount(async () => {
-        let user = await getCurrentUser();
-
-        servers = user.servers;
+    onMount(() => {
+        current_user.subscribe((user) => {
+            servers = user.servers;
+        });
     });
 </script>
 

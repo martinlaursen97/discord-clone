@@ -28,5 +28,6 @@ def create_server(server: ServerSchema, current_user: User = Depends(utils.get_c
     member = Member(user_id=current_user.id, server_id=new_server.id)
     db.add(member)
     db.commit()
-    
+    db.refresh(new_server)
+
     return new_server

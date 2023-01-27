@@ -1,6 +1,8 @@
 <script>
-    import { token } from "../stores.js";
+    import { token, current_user } from "../stores.js";
+    import { getCurrentUser } from "../api/crud.js";
     import axios from "axios";
+    import { get } from "svelte/store";
 
     const formData = {
         email: "",
@@ -21,6 +23,9 @@
 
             document.cookie = `token=${res.data.access_token}`;
             token.set(document.cookie);
+
+            const user = await getCurrentUser();
+            current_user.set(user);
 
             window.location.replace("/");
         } catch (err) {

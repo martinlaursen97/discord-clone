@@ -1,5 +1,5 @@
 
-import { token, BASE_URL } from "../stores";
+import { token, current_user, BASE_URL } from "../stores";
 import { get } from 'svelte/store';
 import axios from "axios";
 
@@ -17,6 +17,7 @@ export async function getCurrentUser() {
         );
         const user = res.data;
 
+        current_user.set(await user)
         return user;
     } catch (err) {
         return null;
@@ -37,6 +38,7 @@ export async function create(resource, newObject) {
             }
         );
         const createdObject = res.data;
+
 
         return createdObject;
     } catch (err) {
