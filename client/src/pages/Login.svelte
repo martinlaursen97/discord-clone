@@ -1,8 +1,9 @@
 <script>
-    import { token, current_user } from "../stores.js";
+    import { token, current_user, selectedServer } from "../stores.js";
     import { getCurrentUser } from "../api/crud.js";
     import axios from "axios";
     import { get } from "svelte/store";
+    import { useResolvable } from "svelte-navigator";
 
     const formData = {
         email: "",
@@ -27,10 +28,11 @@
             const user = await getCurrentUser();
             current_user.set(user);
 
+            selectedServer.set(user.servers[0]);
+
             window.location.replace("/");
         } catch (err) {
             console.log(err);
-            alert("ERROR");
         }
     }
 </script>
