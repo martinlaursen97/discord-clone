@@ -1,5 +1,6 @@
 <script>
     import SideBar from "../components/SideBar.svelte";
+    import Modal from "../components/ServerFormModal.svelte";
     import { onMount } from "svelte";
     import { getCurrentUser } from "../api/crud";
 

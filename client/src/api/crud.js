@@ -7,9 +7,8 @@ import axios from "axios";
 export async function getCurrentUser() {
     const value = get(token)
     try {
-        const res = await axios.post(
+        const res = await axios.get(
             `${BASE_URL}/auth/current-user`,
-            null,
             {
                 headers: {
                     Authorization: `Bearer ${value.split("token=")[1]}`,
@@ -22,5 +21,25 @@ export async function getCurrentUser() {
     } catch (err) {
         return null;
     }
+}
 
+export async function create(resource, newObject) {
+    const value = get(token)
+    try {
+        const res = await axios.post(
+            `${BASE_URL}/${resource}`,
+            newObject,
+            {
+                headers: {
+                    Authorization: `Bearer ${value.split("token=")[1]}`,
+                },
+
+            }
+        );
+        const createdObject = res.data;
+
+        return createdObject;
+    } catch (err) {
+        return null;
+    }
 }

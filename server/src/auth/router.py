@@ -37,7 +37,7 @@ def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depend
 def refresh_token():
     pass
 
-@router.post('/current-user')
+@router.get('/current-user')
 def verify_jwt(current_user: UserOut = Depends(utils.get_current_user)):
     servers = [membership.author_server for membership in current_user.memberships]
     current_user.servers = servers
