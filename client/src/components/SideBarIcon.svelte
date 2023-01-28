@@ -1,27 +1,31 @@
 <script>
+    import { onMount } from "svelte";
     import { selectedServer } from "../stores";
-    import { get } from "svelte/store";
     export let server;
 
-    import { onMount } from "svelte";
+    let selectedServerId = 0;
 
     function selectServer() {
-        selectedServer.set(server);
+        localStorage.setItem("selectedServerId", server.id);
+        selectedServerId = server.id;
+        selectedServer.set(server.id);
     }
 
     onMount(() => {
-        if (!get(selectedServer).id) {
-            selectedServer.set(server);
-        }
+        const storageServerId = parseInt(
+            localStorage.getItem("selectedServerId")
+        );
+        selectedServer.set(storageServerId);
+        selectedServerId = parseInt(localStorage.getItem("selectedServerId"));
     });
 </script>
 
-{#if $selectedServer}
-    {#if $selectedServer.id === server.id}
+{#if selectedServerId}
+    {#if selectedServerId === server.id && $selectedServer == server.id}
         <button
             class="relative flex items-center justify-center text-xl h-16 w-16 mt-2  mx-auto shadow-lg bg-orange-400 text-white hover:bg-orange-500 rounded-3xl hover:rounded-xl transition-all duration-200 ease-linear cursor-pointer"
         >
-            {server.name} 132
+            {server.name}
         </button>
     {:else}
         <button

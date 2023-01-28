@@ -1,14 +1,12 @@
 <script>
-    import SideBar from "../components/SideBar.svelte";
     import { onMount } from "svelte";
-    import { current_user } from "../stores";
-    let servers = [];
+    import SideBar from "../components/SideBar.svelte";
+    import { getCurrentUser } from "../api/crud";
+    import { servers } from "../stores";
 
-    onMount(() => {
-        current_user.subscribe((user) => {
-            servers = user.servers;
-        });
+    onMount(async () => {
+        servers.set((await getCurrentUser()).servers);
     });
 </script>
 
-<SideBar {servers} />
+<SideBar servers={$servers} />

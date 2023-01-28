@@ -1,21 +1,15 @@
 <script>
     import { Modal, Label, Input } from "flowbite-svelte";
-    import { create } from "../api/crud";
-    import { current_user } from "../stores";
-    import { get } from "svelte/store";
+    import { create, getCurrentUser } from "../api/crud";
+    import { servers } from "../stores";
 
     let formModal = false;
     let serverName = "";
 
     async function createServer() {
-        let newObject = await create("servers", { name: serverName });
-        let currentUser = get(current_user);
-
-        currentUser.servers = [...currentUser.servers, newObject];
-        current_user.set(currentUser);
-
+        let newServer = await create("servers", { name: serverName });
+        servers.set([...$servers, newServer]);
         formModal = false;
-        return newObject;
     }
 </script>
 

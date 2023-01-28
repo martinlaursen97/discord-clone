@@ -1,23 +1,22 @@
 
-import { token, current_user, BASE_URL } from "../stores";
-import { get } from 'svelte/store';
 import axios from "axios";
+import { BASE_URL } from "../stores";
 
 
 export async function getCurrentUser() {
-    const value = get(token)
+    const value = document.cookie.split("token=")[1]
+
     try {
         const res = await axios.get(
             `${BASE_URL}/auth/current-user`,
             {
                 headers: {
-                    Authorization: `Bearer ${value.split("token=")[1]}`,
+                    Authorization: `Bearer ${value}`,
                 },
             }
         );
         const user = res.data;
 
-        current_user.set(await user)
         return user;
     } catch (err) {
         return null;
@@ -25,14 +24,14 @@ export async function getCurrentUser() {
 }
 
 export async function create(resource, newObject) {
-    const value = get(token)
+    const value = document.cookie.split("token=")[1]
     try {
         const res = await axios.post(
             `${BASE_URL}/${resource}`,
             newObject,
             {
                 headers: {
-                    Authorization: `Bearer ${value.split("token=")[1]}`,
+                    Authorization: `Bearer ${value}`,
                 },
 
             }
@@ -44,4 +43,8 @@ export async function create(resource, newObject) {
     } catch (err) {
         return null;
     }
+}
+
+export async function read(resource) {
+
 }

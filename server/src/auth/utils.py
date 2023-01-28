@@ -20,14 +20,14 @@ def verify(password: str, hashed_password: str) -> bool:
     return pwd_context.verify(password, hashed_password)
 
 def create_access_token(data: dict):
-    print(settings)
     payload = data.copy()
 
     expire = datetime.utcnow() + timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
     payload.update({"exp": expire})
 
+    print(payload)
+
     encoded_jwt = jwt.encode(payload, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
-    print(encoded_jwt)
     return encoded_jwt
 
 

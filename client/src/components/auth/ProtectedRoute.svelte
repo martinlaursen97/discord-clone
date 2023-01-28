@@ -12,6 +12,7 @@
     async function tokenIsValid() {
         return (await getCurrentUser()) != null;
     }
+
     onMount(async () => {
         isLoading = true;
         isAuthenticated = await tokenIsValid();
