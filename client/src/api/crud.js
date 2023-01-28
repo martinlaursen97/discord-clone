@@ -45,6 +45,22 @@ export async function create(resource, newObject) {
     }
 }
 
-export async function read(resource) {
+export async function read(resource, id) {
+    const value = document.cookie.split("token=")[1]
+    try {
+        const res = await axios.get(
+            `${BASE_URL}/${resource}/${id}`,
 
+            {
+                headers: {
+                    Authorization: `Bearer ${value}`,
+                },
+
+            }
+        );
+
+        return res.data;
+    } catch (err) {
+        return null;
+    }
 }
