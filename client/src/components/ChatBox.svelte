@@ -6,6 +6,7 @@
 
     async function createPost() {
         webSocket.send(message);
+
         message = "";
     }
 

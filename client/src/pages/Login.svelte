@@ -22,6 +22,8 @@
 
             document.cookie = `token=${res.data.access_token}`;
 
+            localStorage.setItem("selectedServerId", servers[0].id);
+
             window.location.replace("/");
         } catch (err) {
             console.log(err);
