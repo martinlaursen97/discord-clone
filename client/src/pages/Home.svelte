@@ -5,6 +5,7 @@
     import { servers } from "../stores";
     import Posts from "../components/Posts.svelte";
     import MembersList from "../components/MembersList.svelte";
+    import ChatBox from "../components/ChatBox.svelte";
 
     onMount(async () => {
         servers.set((await getCurrentUser()).servers);
@@ -16,4 +17,5 @@
     <Posts />
 {/if}
 
+<ChatBox />
 <MembersList />

@@ -19,21 +19,17 @@ router = APIRouter(
 
 @router.post('/', status_code=status.HTTP_201_CREATED, response_model=UserOut)
 def register(user: UserCreate, db: Session = Depends(get_db)):
-    # Check if email is taken
     email_exists = db.query(exists().where(models.User.email == user.email)).scalar()
     if email_exists:
         raise HTTPException(status_code=400, detail=f'\'{user.email}\' already exists.')
 
-    # Hash password
     user.password = utils.hash_password(user.password)
 
     new_user = models.User(**user.dict())
 
-    # Store created user in db with the hashed password
     db.add(new_user)
     db.commit()
     
-
     return user
 
 @router.get('/server/{server_id}')
