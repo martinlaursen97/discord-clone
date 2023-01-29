@@ -59,7 +59,7 @@ export async function read(resource, id) {
             }
         );
 
-        return res.data;
+        return Array.isArray(res.data) ? res.data : [res.data];
     } catch (err) {
         return null;
     }

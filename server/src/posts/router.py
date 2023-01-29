@@ -34,5 +34,5 @@ def get_posts_by_server_id(server_id: int, current_user = Depends(utils.get_curr
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Something went wrong")
 
     posts = db.query(PostModel).filter(PostModel.server_id == server_id).all()
-
+    
     return posts
